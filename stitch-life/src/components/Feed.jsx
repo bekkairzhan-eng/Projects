@@ -423,10 +423,9 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
   return (
     <div>
       {/* Приветствие */}
-      <div className="mb-6">
-        <p style={{ fontSize: 13, color: '#747684', marginBottom: 2 }}>Добрый день, Каиржан 👋</p>
-        <h2 style={{ fontSize: 24, fontWeight: 700, color: '#1a1b22' }}>1 июня</h2>
-      </div>
+      <p className="mb-4" style={{ fontSize: 15, color: '#444653' }}>
+        Добрый день, Каиржан. Сегодня — 1 июня, понедельник
+      </p>
 
       {/* News Grid */}
       <section className="mb-6">
