@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="light" lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BILife - Корпоративный портал</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-size: 24px;
+        line-height: 1;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      body { font-family: 'Inter', sans-serif; background-color: #faf8ff; }
+      .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #CBD5E1; }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#1a1b22",
+              "surface-variant": "#e2e1eb",
+              "secondary-container": "#dde0e2",
+              "on-secondary-container": "#5f6365",
+              "on-primary": "#ffffff",
+              "on-primary-container": "#8aa4ff",
+              "error": "#ba1a1a",
+              "on-error": "#ffffff",
+              "on-surface-variant": "#444653",
+              "outline-variant": "#c4c5d5",
+              "surface-container": "#eeedf6",
+              "surface": "#faf8ff",
+              "surface-dim": "#dad9e2",
+              "secondary": "#5b5f61",
+              "surface-container-high": "#e8e7f0",
+              "tertiary": "#4f1100",
+              "primary": "#002068",
+              "surface-container-low": "#f4f3fc",
+              "primary-container": "#003399",
+              "background": "#faf8ff",
+              "outline": "#747684",
+              "on-background": "#1a1b22"
+            },
+            spacing: {
+              "container-padding": "32px"
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
