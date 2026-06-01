@@ -43,8 +43,8 @@ const MAIN_NAV = [
 ]
 
 const SYSTEMS = [
-  { icon: 'hub', label: 'Unity BPM', badge: 4, url: 'https://unitybpm.bi.group' },
-  { icon: 'school', label: 'BILIM', badge: 3, url: 'https://bilim.bi.group' },
+  { icon: 'hub',    label: 'Unity BPM', badge: 4, url: 'https://unitybpm.bi.group' },
+  { icon: 'school', label: 'BILIM',     badge: 3, url: 'https://bilim.bi.group'    },
 ]
 
 export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) {

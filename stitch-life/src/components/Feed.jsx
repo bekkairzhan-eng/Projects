@@ -301,6 +301,13 @@ const BIRTHDAYS = [
   { img: '/bd10.png', name: 'Сауле Ержанова',        when: '26 июня', today: false },
 ]
 
+const EXTRA_SYSTEMS = [
+  { icon: 'insert_chart', label: 'Bagdar',    url: 'https://bagdar.bi.group',  color: '#be185d', bg: 'rgba(190,24,93,0.08)'  },
+  { icon: 'person_search', label: 'BI Hunter', url: 'https://hunter.bi.group', color: '#7c3aed', bg: 'rgba(124,58,237,0.08)' },
+  { icon: 'science',       label: 'TestLab',   url: 'https://testlab.bi.group', color: '#0f766e', bg: 'rgba(15,118,110,0.08)' },
+  { icon: 'construction',  label: 'Opera Build', url: 'https://operabuild.bi.group', color: '#b45309', bg: 'rgba(180,83,9,0.08)' },
+]
+
 const QUICK_LAUNCH = [
   { icon: 'star',            label: 'Фонд Жулдызай' },
   { icon: 'desktop_windows', label: 'Service Desk'  },
@@ -371,6 +378,21 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
   const feedRef = useRef(null)
   const sentinel = useRef(null)
 
+  // Синхронизировать высоту BI Дауысы с правой колонкой
+  useEffect(() => {
+    const rightCol = document.getElementById('right-col')
+    const dauysCard = document.getElementById('dauys-card')
+    if (!rightCol || !dauysCard) return
+    const sync = () => {
+      const h = rightCol.offsetHeight
+      if (h > 0) dauysCard.style.height = h + 'px'
+    }
+    sync()
+    const ro = new ResizeObserver(sync)
+    ro.observe(rightCol)
+    return () => ro.disconnect()
+  }, [])
+
   useEffect(() => {
     if (!sentinel.current || !feedRef.current) return
     const observer = new IntersectionObserver(
@@ -400,40 +422,11 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
 
   return (
     <div>
-      {/* Hero Stats */}
-      <section className="mb-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <p style={{ fontSize: 13, color: '#747684', marginBottom: 2 }}>Добрый день, Каиржан 👋</p>
-            <h2 style={{ fontSize: 24, fontWeight: 700, color: '#1a1b22' }}>Мой день · 1 июня</h2>
-          </div>
-          <div className="flex gap-4">
-            <div className="bg-white px-4 py-2 rounded-lg shadow-sm border border-outline-variant/20 flex items-center gap-3">
-              <span style={{ fontSize: 20, fontWeight: 700, color: '#002068' }}>10</span>
-              <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#444653' }}>Активные</span>
-            </div>
-            {(() => {
-              const waitingCount = 7
-              return (
-                <button
-                  onClick={waitingCount > 0 ? onOpenTasks : undefined}
-                  className="bg-white px-4 py-2 rounded-lg shadow-sm border border-outline-variant/20 flex items-center gap-3 transition-all"
-                  style={{ cursor: waitingCount > 0 ? 'pointer' : 'default' }}
-                  onMouseEnter={e => waitingCount > 0 && (e.currentTarget.style.borderColor = '#002068')}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = '')}
-                >
-                  <span style={{ fontSize: 20, fontWeight: 700, color: waitingCount > 0 ? '#4f1100' : '#747684' }}>{waitingCount}</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#444653' }}>Ждут меня</span>
-                </button>
-              )
-            })()}
-            <div className="bg-white px-4 py-2 rounded-lg shadow-sm border border-outline-variant/20 flex items-center gap-3">
-              <span style={{ fontSize: 20, fontWeight: 700, color: '#5b5f61' }}>29</span>
-              <span style={{ fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#444653' }}>Закрыто</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Приветствие */}
+      <div className="mb-6">
+        <p style={{ fontSize: 13, color: '#747684', marginBottom: 2 }}>Добрый день, Каиржан 👋</p>
+        <h2 style={{ fontSize: 24, fontWeight: 700, color: '#1a1b22' }}>1 июня</h2>
+      </div>
 
       {/* News Grid */}
       <section className="mb-6">
@@ -520,9 +513,9 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
       </section>
 
       {/* Discussions & Learning */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" style={{ alignItems: 'start' }}>
         {/* BI Дауысы */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-outline-variant/20">
+        <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-outline-variant/20 flex flex-col" id="dauys-card">
           <div className="flex items-center justify-between mb-6">
             <h3 className="flex items-center gap-2 font-bold" style={{ fontSize: 24 }}>
               <span className="material-symbols-outlined text-primary" style={{ fontSize: 28 }}>campaign</span>
@@ -535,7 +528,7 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
 
           <div
             ref={feedRef}
-            className="space-y-0 max-h-[480px] overflow-y-auto custom-scrollbar"
+            className="space-y-0 flex-1 overflow-y-auto custom-scrollbar"
           >
             {visiblePosts.map((post, i) => (
               <div
@@ -599,7 +592,7 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
         </div>
 
         {/* Right column */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6" id="right-col">
           {/* Quick Launch */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-outline-variant/20">
             <h3 className="font-semibold mb-6 flex items-center gap-2" style={{ fontSize: 18 }}>
@@ -618,6 +611,31 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
                   </div>
                   <span className="font-medium leading-tight" style={{ fontSize: 12, color: '#1a1b22' }}>{item.label}</span>
                 </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Системы */}
+          <div className="bg-white p-4 rounded-xl shadow-sm border border-outline-variant/20">
+            <h3 className="font-semibold mb-3 flex items-center gap-2" style={{ fontSize: 16 }}>
+              <span className="material-symbols-outlined text-primary" style={{ fontSize: 20 }}>grid_view</span>
+              Мои системы
+            </h3>
+            <div className="grid grid-cols-2 gap-2">
+              {EXTRA_SYSTEMS.map((sys) => (
+                <a
+                  key={sys.label}
+                  href={sys.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-surface-container transition-colors group"
+                  style={{ background: 'rgba(238,237,246,0.3)', textDecoration: 'none' }}
+                >
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shrink-0" style={{ background: sys.bg }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: 17, color: sys.color }}>{sys.icon}</span>
+                  </div>
+                  <span className="font-medium leading-tight" style={{ fontSize: 12, color: '#1a1b22' }}>{sys.label}</span>
+                </a>
               ))}
             </div>
           </div>
