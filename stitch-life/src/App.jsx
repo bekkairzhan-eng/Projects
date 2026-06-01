@@ -9,7 +9,7 @@ function IframeView({ system, onClose, collapsed }) {
   const ml = collapsed ? 'md:ml-[72px]' : 'md:ml-64'
 
   return (
-    <div className={`flex-1 ${ml} flex flex-col transition-all duration-300`} style={{ height: 'calc(100vh - 64px)' }}>
+    <div className="flex-1 md:ml-[72px] flex flex-col transition-all duration-300" style={{ height: '100vh' }}>
       <div className="flex items-center gap-3 px-4 h-11 bg-white border-b border-outline-variant flex-shrink-0">
         <button
           onClick={onClose}
@@ -65,7 +65,7 @@ export default function App() {
 
   return (
     <div className="bg-background text-on-background min-h-screen">
-      <Header onHome={() => setActiveSystem(null)} />
+      {!activeSystem && <Header onHome={() => setActiveSystem(null)} />}
       <div className="flex">
         <Sidebar
           collapsed={collapsed}

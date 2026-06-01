@@ -57,9 +57,9 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
 
   function handleParentClick(e, item) {
     e.preventDefault()
+    onHome?.()
     if (item.label === 'Главная') {
       setActive('Главная')
-      onHome?.()
       return
     }
     if (item.children) {
@@ -72,6 +72,7 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
 
   function handleChildClick(e, childLabel) {
     e.preventDefault()
+    onHome?.()
     setActive(childLabel)
   }
 
