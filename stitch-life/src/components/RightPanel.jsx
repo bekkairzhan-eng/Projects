@@ -162,26 +162,38 @@ export default function RightPanel({ drawerOpen = false, onDrawerOpen, onDrawerC
 
     <aside className="fixed right-0 top-16 bottom-0 w-80 bg-surface overflow-y-auto hidden xl:flex flex-col p-6 z-40 custom-scrollbar" style={{ boxShadow: '-2px 0 20px rgba(0,0,0,0.06)' }}>
 
-      {/* Tasks */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-bold flex items-center gap-2" style={{ fontSize: 16 }}>
-            <span className="material-symbols-outlined text-error" style={{ fontSize: 20 }}>pending_actions</span>
-            Задачи
-          </h3>
-          <button onClick={onDrawerOpen} className="font-bold hover:underline bg-transparent border-none cursor-pointer" style={{ fontSize: 12, color: '#002068' }}>
-            Все ({TASKS.length})
-          </button>
+      {/* Задачи — скрыто, будет во второй итерации */}
+      {false && (
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-bold flex items-center gap-2" style={{ fontSize: 16 }}>
+              <span className="material-symbols-outlined text-error" style={{ fontSize: 20 }}>pending_actions</span>
+              Задачи
+            </h3>
+            <button onClick={onDrawerOpen} className="font-bold hover:underline bg-transparent border-none cursor-pointer" style={{ fontSize: 12, color: '#002068' }}>
+              Все ({TASKS.length})
+            </button>
+          </div>
+          <div className="space-y-2">
+            {TASKS.slice(0, 3).map((task) => (
+              <TaskCard key={task.docNum} task={task} />
+            ))}
+          </div>
         </div>
+      )}
 
-        <div className="space-y-2">
-          {TASKS.slice(0, 3).map((task) => (
-            <TaskCard key={task.docNum} task={task} />
-          ))}
-        </div>
+      {/* Слово дня */}
+      <div className="rounded-2xl p-4 text-white mb-6" style={{ background: 'linear-gradient(135deg, #001650 0%, #0038b8 100%)' }}>
+        <p className="font-semibold uppercase mb-2" style={{ fontSize: 10, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)' }}>
+          Слово дня
+        </p>
+        <p className="font-bold mb-2" style={{ fontSize: 15, color: '#fff' }}>Префаб</p>
+        <p className="leading-relaxed" style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', lineHeight: '18px' }}>
+          Готовая деталь каркаса или фасада, производимая на фабрике для сухой сборки на стройплощадке.
+        </p>
       </div>
 
-      {/* Моя команда — все 6, без кнопки "Все" */}
+      {/* Моя команда */}
       <div className="mb-6">
         <h3 className="font-semibold mb-4" style={{ fontSize: 16 }}>Моя команда</h3>
         <div className="space-y-3">
@@ -195,17 +207,6 @@ export default function RightPanel({ drawerOpen = false, onDrawerOpen, onDrawerC
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Слово дня */}
-      <div className="rounded-2xl p-4 text-white" style={{ background: 'linear-gradient(135deg, #001650 0%, #0038b8 100%)' }}>
-        <p className="font-semibold uppercase mb-2" style={{ fontSize: 10, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)' }}>
-          Слово дня
-        </p>
-        <p className="font-bold mb-2" style={{ fontSize: 15, color: '#fff' }}>Префаб</p>
-        <p className="leading-relaxed" style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', lineHeight: '18px' }}>
-          Готовая деталь каркаса или фасада, производимая на фабрике для сухой сборки на стройплощадке.
-        </p>
       </div>
 
     </aside>
