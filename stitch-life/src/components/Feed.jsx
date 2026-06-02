@@ -692,9 +692,8 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
                 {b.name}
               </p>
               <p className="font-bold" style={{ fontSize: 11, color: b.today ? '#002068' : '#747684' }}>{b.when}</p>
-              <button className="flex items-center justify-center gap-1 rounded-lg font-semibold transition-colors" style={{ fontSize: 10, whiteSpace: 'nowrap', width: '100%', padding: '4px 0', background: 'rgba(0,32,104,0.07)', color: '#002068' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: 13 }}>celebration</span>
-                Поздравить
+              <button title="Поздравить" className="flex items-center justify-center rounded-lg font-semibold transition-colors hover:bg-primary/10" style={{ width: '100%', padding: '4px 0', background: 'rgba(0,32,104,0.07)', color: '#002068' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 16 }}>celebration</span>
               </button>
             </div>
           )}
