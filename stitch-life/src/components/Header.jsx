@@ -109,7 +109,7 @@ export default function Header({ onHome }) {
   }, [langOpen])
 
   return (
-    <header className="flex justify-between items-center w-full px-container-padding sticky top-0 z-50 bg-primary h-16 shadow-md">
+    <header className="flex justify-between items-center w-full px-container-padding sticky top-0 z-50 h-16" style={{ background: 'linear-gradient(135deg, #001650 0%, #002580 55%, #0038b8 100%)', boxShadow: '0 4px 24px rgba(0,22,80,0.28)' }}>
       <div className="flex items-center gap-8 flex-1">
         <button
           onClick={onHome}
@@ -118,12 +118,12 @@ export default function Header({ onHome }) {
           <img src="/logo1.png" alt="BI Life" style={{ height: 36 }} />
         </button>
         <div className="relative w-full max-w-md hidden md:block">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2" style={{ fontSize: 18, color: '#747684' }}>
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2" style={{ fontSize: 18, color: 'rgba(255,255,255,0.6)' }}>
             search
           </span>
           <input
-            className="w-full border-none rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/30 focus:outline-none"
-            style={{ backgroundColor: '#ffffff', color: '#1a1b22' }}
+            className="w-full border-none rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none"
+            style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#ffffff', backdropFilter: 'blur(8px)' }}
             placeholder="Найти сотрудника..."
             type="text"
           />

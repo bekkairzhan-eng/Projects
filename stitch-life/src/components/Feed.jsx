@@ -340,20 +340,20 @@ function HorizontalPagedGrid({ items, renderCard, title, icon }) {
           {title}
         </h2>
         <div className="flex items-center gap-2">
-          <a href="#" className="px-3 py-1.5 bg-white border border-outline-variant rounded-lg font-semibold hover:bg-surface-container transition-colors" style={{ fontSize: 12, color: '#444653' }}>
+          <a href="#" className="px-3 py-1.5 bg-white shadow-sm rounded-lg font-semibold hover:bg-surface-container transition-colors" style={{ fontSize: 12, color: '#444653' }}>
             Все
           </a>
           <button
             onClick={() => setPage(p => p - 1)}
             disabled={page === 0}
-            className="p-1.5 bg-white border border-outline-variant rounded-lg hover:bg-surface-container transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="p-1.5 bg-white shadow-sm rounded-lg hover:bg-surface-container transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_left</span>
           </button>
           <button
             onClick={() => setPage(p => p + 1)}
             disabled={page === total - 1}
-            className="p-1.5 bg-white border border-outline-variant rounded-lg hover:bg-surface-container transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            className="p-1.5 bg-white shadow-sm rounded-lg hover:bg-surface-container transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_right</span>
           </button>
@@ -442,8 +442,8 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
                   className="px-3 py-1.5 rounded-lg font-semibold transition-all"
                   style={{
                     fontSize: 12,
-                    background: newsTab === tab.key ? '#002068' : 'transparent',
-                    color: newsTab === tab.key ? '#fff' : '#444653',
+                    background: newsTab === tab.key ? 'linear-gradient(135deg, #001752, #0038b8)' : 'transparent',
+                    color: newsTab === tab.key ? '#fff' : '#4a4955',
                   }}
                 >
                   {tab.label}
@@ -451,13 +451,13 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
               ))}
             </div>
             {/* Пагинация */}
-            <a href="#" className="px-3 py-1.5 bg-white border border-outline-variant rounded-lg font-semibold hover:bg-surface-container transition-colors" style={{ fontSize: 12, color: '#444653' }}>
+            <a href="#" className="px-3 py-1.5 bg-white shadow-sm rounded-lg font-semibold hover:bg-surface-container transition-colors" style={{ fontSize: 12, color: '#444653' }}>
               Все
             </a>
-            <button className="p-1.5 bg-white border border-outline-variant rounded-lg hover:bg-surface-container transition-colors">
+            <button className="p-1.5 bg-white shadow-sm rounded-lg hover:bg-surface-container transition-colors">
               <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_left</span>
             </button>
-            <button className="p-1.5 bg-white border border-outline-variant rounded-lg hover:bg-surface-container transition-colors">
+            <button className="p-1.5 bg-white shadow-sm rounded-lg hover:bg-surface-container transition-colors">
               <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_right</span>
             </button>
           </div>
@@ -585,7 +585,7 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
             {hasMore && <div ref={sentinel} style={{ height: 20 }} />}
           </div>
 
-          <button className="w-full mt-6 py-3 bg-surface-container hover:bg-surface-container-high transition-colors rounded-xl font-bold text-primary" style={{ fontSize: 13 }}>
+          <button className="w-full mt-6 py-3 rounded-xl font-bold text-white hover:opacity-90 transition-opacity" style={{ fontSize: 13, background: 'linear-gradient(135deg, #001752, #0038b8)' }}>
             Перейти в обсуждения
           </button>
         </div>
@@ -603,7 +603,7 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
                 <button
                   key={item.label}
                   className="flex items-center gap-2.5 p-3 rounded-xl hover:bg-surface-container transition-colors group text-left"
-                  style={{ background: 'rgba(238,237,246,0.3)' }}
+                  style={{ background: 'rgba(0,32,104,0.04)' }}
                 >
                   <div className="w-8 h-8 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform shrink-0" style={{ background: 'rgba(0,51,153,0.1)' }}>
                     <span className="material-symbols-outlined" style={{ fontSize: 17 }}>{item.icon}</span>
@@ -628,7 +628,7 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-surface-container transition-colors group"
-                  style={{ background: 'rgba(238,237,246,0.3)', textDecoration: 'none' }}
+                  style={{ background: 'rgba(0,0,0,0.03)', textDecoration: 'none' }}
                 >
                   <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shrink-0" style={{ background: sys.bg }}>
                     <span className="material-symbols-outlined" style={{ fontSize: 17, color: sys.color }}>{sys.icon}</span>
@@ -654,13 +654,13 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
                   </div>
                   <div className="h-2 bg-surface-container rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-primary rounded-full transition-all duration-1000"
-                      style={{ width: `${course.pct}%` }}
+                      className="h-full rounded-full transition-all duration-1000"
+                      style={{ width: `${course.pct}%`, background: 'linear-gradient(90deg, #002068, #0040bf)' }}
                     />
                   </div>
                 </div>
               ))}
-              <button className="w-full py-2 border border-primary text-primary font-bold rounded-lg hover:bg-primary-container/5 transition-colors mt-2" style={{ fontSize: 13 }}>
+              <button className="w-full py-2 font-bold rounded-xl text-white hover:opacity-90 transition-opacity mt-2" style={{ fontSize: 13, background: 'linear-gradient(135deg, #001752, #0038b8)' }}>
                 Продолжить курс
               </button>
             </div>
@@ -678,7 +678,7 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
             <div
               key={b.name}
               className="flex flex-col items-center gap-2 bg-white rounded-2xl border border-outline-variant/20 shadow-sm hover:shadow-md transition-all cursor-pointer"
-              style={{ padding: '12px 6px', minWidth: 0, ...(b.today ? { borderColor: '#002068', background: '#f0f4ff' } : {}) }}
+              style={{ padding: '12px 6px', minWidth: 0, ...(b.today ? { borderColor: '#0038b8', background: 'linear-gradient(135deg, #eef2ff, #e8f0ff)' } : {}) }}
             >
               <div className="relative">
                 <img src={b.img} alt={b.name} className="rounded-full object-cover flex-shrink-0" style={{ width: 56, height: 56 }} />

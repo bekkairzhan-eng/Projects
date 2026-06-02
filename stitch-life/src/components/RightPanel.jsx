@@ -108,7 +108,7 @@ function actionStyle(variant) {
 function TaskCard({ task }) {
   const st = STATUS_STYLES[task.status] ?? { color: '#444653', bg: '#eeedf6' }
   return (
-    <div className="rounded-xl border border-outline-variant/30 hover:border-outline-variant hover:shadow-sm transition-all p-3">
+    <div className="rounded-2xl bg-white shadow-sm hover:shadow-md transition-all p-3 border border-outline-variant/10">
       <p className="font-semibold leading-snug mb-2" style={{ fontSize: 12, color: '#1a1b22' }}>{task.name}</p>
       <div className="flex items-center gap-2 mb-2 flex-wrap">
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: st.bg, color: st.color }}>{task.status}</span>
@@ -160,7 +160,7 @@ export default function RightPanel({ drawerOpen = false, onDrawerOpen, onDrawerC
         </div>
       </div>
 
-    <aside className="fixed right-0 top-16 bottom-0 w-80 bg-white border-l border-outline-variant overflow-y-auto hidden xl:flex flex-col p-6 z-40 custom-scrollbar">
+    <aside className="fixed right-0 top-16 bottom-0 w-80 bg-surface overflow-y-auto hidden xl:flex flex-col p-6 z-40 custom-scrollbar" style={{ boxShadow: '-2px 0 20px rgba(0,0,0,0.06)' }}>
 
       {/* Tasks */}
       <div className="mb-8">
@@ -198,7 +198,7 @@ export default function RightPanel({ drawerOpen = false, onDrawerOpen, onDrawerC
       </div>
 
       {/* Слово дня */}
-      <div className="rounded-2xl p-4 text-white" style={{ background: '#0d1f4e' }}>
+      <div className="rounded-2xl p-4 text-white" style={{ background: 'linear-gradient(135deg, #001650 0%, #0038b8 100%)' }}>
         <p className="font-semibold uppercase mb-2" style={{ fontSize: 10, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)' }}>
           Слово дня
         </p>

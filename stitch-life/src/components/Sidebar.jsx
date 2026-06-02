@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
 const MAIN_NAV = [
-  { icon: 'home', label: 'Главная' },
+  { icon: 'home', label: 'Главная', iconColor: '#002068' },
   {
     icon: 'newspaper',
     label: 'Новости',
+    iconColor: '#0ea5e9',
     children: [
       { icon: 'view_stream', label: 'Лента' },
       { icon: 'menu_book', label: 'Журналы' },
@@ -15,6 +16,7 @@ const MAIN_NAV = [
   {
     icon: 'group',
     label: 'Сотрудники',
+    iconColor: '#8b5cf6',
     children: [
       { icon: 'cake', label: 'Дни рождения' },
       { icon: 'person_add', label: 'Новые' },
@@ -25,6 +27,7 @@ const MAIN_NAV = [
   {
     icon: 'account_tree',
     label: 'Оргструктура',
+    iconColor: '#f59e0b',
     children: [
       { icon: 'handshake', label: 'Акционеры и Партнеры' },
       { icon: 'military_tech', label: 'ТОР Сотрудники' },
@@ -33,13 +36,14 @@ const MAIN_NAV = [
   {
     icon: 'diversity_3',
     label: 'Миссия и Ценности',
+    iconColor: '#10b981',
     children: [
       { icon: 'my_location', label: 'Цель' },
       { icon: 'favorite', label: 'Ценности' },
       { icon: 'history', label: 'История' },
     ],
   },
-  { icon: 'record_voice_over', label: 'BI Дауысы' },
+  { icon: 'record_voice_over', label: 'BI Дауысы', iconColor: '#f43f5e' },
 ]
 
 const SYSTEMS = [
@@ -78,7 +82,8 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
 
   return (
     <aside
-      className="fixed left-0 top-16 bottom-0 border-r border-outline-variant bg-surface-container flex flex-col pt-4 pb-8 z-40 hidden md:flex transition-all duration-300"
+      className="fixed left-0 top-16 bottom-0 bg-white flex flex-col pt-4 pb-8 z-40 hidden md:flex transition-all duration-300"
+      style={{ boxShadow: '2px 0 20px rgba(0,0,0,0.07)' }}
       style={{ width: collapsed ? 72 : 256 }}
     >
       {/* Collapse toggle — маленький круглый handle на правом крае */}
@@ -109,17 +114,20 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
                 href="#"
                 onClick={(e) => handleParentClick(e, item)}
                 title={collapsed ? item.label : undefined}
-                className={`flex items-center gap-3 rounded-lg my-0.5 transition-all duration-200 ${
-                  collapsed ? 'mx-2 px-3 py-3 justify-center' : 'mx-2 px-4 py-3'
+                className={`flex items-center gap-3 rounded-xl my-0.5 transition-all duration-200 ${
+                  collapsed ? 'mx-2 px-3 py-3 justify-center' : 'mx-2 px-4 py-2.5'
                 } ${
                   highlighted
-                    ? 'bg-primary-container text-on-primary-container border-l-4 border-primary scale-[0.98]'
+                    ? 'bg-primary/10 text-primary font-medium shadow-sm'
                     : 'text-on-surface-variant hover:bg-surface-container-high'
                 }`}
               >
                 <span
                   className="material-symbols-outlined flex-shrink-0"
-                  style={highlighted ? { fontVariationSettings: "'FILL' 1" } : {}}
+                  style={{
+                    color: item.iconColor ?? '#6e6d78',
+                    fontVariationSettings: highlighted ? "'FILL' 1" : "'FILL' 0",
+                  }}
                 >
                   {item.icon}
                 </span>

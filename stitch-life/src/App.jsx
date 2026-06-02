@@ -86,25 +86,31 @@ export default function App() {
       </div>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-outline-variant grid grid-cols-5 md:hidden z-50 h-16">
-        <button className="flex flex-col items-center justify-center text-primary">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>home</span>
-          <span className="text-[10px]">Главная</span>
+      <nav
+        className="fixed bottom-0 left-0 right-0 bg-white grid grid-cols-5 md:hidden z-50 h-16 rounded-t-2xl"
+        style={{ boxShadow: '0 -4px 24px rgba(0,0,0,0.1)' }}
+      >
+        <button className="flex flex-col items-center justify-center gap-0.5 relative">
+          <span className="absolute top-1 w-8 h-1 rounded-full bg-primary opacity-90" />
+          <span className="material-symbols-outlined" style={{ fontSize: 22, color: '#002068', fontVariationSettings: "'FILL' 1" }}>home</span>
+          <span className="text-[10px] font-semibold" style={{ color: '#002068' }}>Главная</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant">
-          <span className="material-symbols-outlined">newspaper</span>
+        <button className="flex flex-col items-center justify-center gap-0.5 text-on-surface-variant">
+          <span className="material-symbols-outlined" style={{ fontSize: 22 }}>newspaper</span>
           <span className="text-[10px]">Новости</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant">
-          <span className="material-symbols-outlined">add_circle</span>
-          <span className="text-[10px]">Создать</span>
+        <button className="flex flex-col items-center justify-center gap-0.5">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center -mt-5" style={{ background: 'linear-gradient(135deg, #001752, #0038b8)', boxShadow: '0 4px 14px rgba(0,32,104,0.4)' }}>
+            <span className="material-symbols-outlined text-white" style={{ fontSize: 22 }}>add</span>
+          </div>
+          <span className="text-[10px] text-on-surface-variant mt-0.5">Создать</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant">
-          <span className="material-symbols-outlined">hub</span>
+        <button className="flex flex-col items-center justify-center gap-0.5 text-on-surface-variant">
+          <span className="material-symbols-outlined" style={{ fontSize: 22 }}>hub</span>
           <span className="text-[10px]">Сервисы</span>
         </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant">
-          <img src="/iam1.png" className="w-6 h-6 rounded-full object-cover" alt="Профиль" />
+        <button className="flex flex-col items-center justify-center gap-0.5 text-on-surface-variant">
+          <img src="/iam1.png" className="w-7 h-7 rounded-full object-cover" alt="Профиль" />
           <span className="text-[10px]">Профиль</span>
         </button>
       </nav>
