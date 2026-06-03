@@ -66,7 +66,7 @@ export default function App() {
   return (
     <div className="bg-background text-on-background min-h-screen">
       {!activeSystem && <Header onHome={() => setActiveSystem(null)} />}
-      <div className="flex">
+      <div className="flex" style={{ paddingTop: activeSystem ? 0 : 64 }}>
         <Sidebar
           collapsed={collapsed}
           onToggle={() => setCollapsed((v) => !v)}

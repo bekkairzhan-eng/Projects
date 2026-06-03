@@ -109,34 +109,24 @@ export default function Header({ onHome }) {
   }, [langOpen])
 
   return (
-    <header className="flex justify-between items-center w-full px-container-padding sticky top-0 z-50 h-16" style={{ background: 'linear-gradient(135deg, #001650 0%, #002580 55%, #0038b8 100%)', boxShadow: '0 4px 24px rgba(0,22,80,0.28)' }}>
-      <div className="flex items-center gap-8 flex-1">
-        <button
-          onClick={onHome}
-          className="bg-transparent border-none cursor-pointer leading-none flex-shrink-0"
-        >
-          <img src="/logo1.png" alt="BI Life" style={{ height: 36 }} />
-        </button>
-        <div className="relative w-full max-w-md hidden md:block">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2" style={{ fontSize: 18, color: 'rgba(255,255,255,0.6)' }}>
-            search
-          </span>
-          <input
-            className="w-full border-none rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none"
-            style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#ffffff', backdropFilter: 'blur(8px)' }}
-            placeholder="Найти сотрудника..."
-            type="text"
-          />
-        </div>
+    <header className="fixed top-0 right-0 z-50 h-16 flex items-center gap-4 px-6" style={{ background: '#f8f7ff', left: 256 }}>
+      {/* Поиск по центру */}
+      <div className="relative flex-1 max-w-lg">
+        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2" style={{ fontSize: 18, color: '#9ca3af' }}>search</span>
+        <input
+          className="w-full rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none"
+          style={{ background: '#fff', border: '1px solid #e5e7eb', color: '#1a1b22' }}
+          placeholder="Поиск по сотрудникам, новостям, документам..."
+          type="text"
+        />
       </div>
-
-      <div className="flex items-center gap-4" ref={panelRef}>
+      <div className="flex items-center gap-4 ml-auto" ref={panelRef}>
         {/* Переключатель языка */}
         <div className="relative hidden md:block" ref={langRef}>
           <button
             onClick={() => setLangOpen(v => !v)}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-lg font-bold hover:bg-white/10 transition-colors"
-            style={{ fontSize: 13, color: 'rgba(255,255,255,0.85)', letterSpacing: '0.05em' }}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-lg font-bold hover:bg-outline-variant/20 transition-colors"
+            style={{ fontSize: 13, color: '#002068', letterSpacing: '0.05em' }}
           >
             {lang}
             <span className="material-symbols-outlined transition-transform duration-200" style={{ fontSize: 16, transform: langOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
@@ -164,14 +154,14 @@ export default function Header({ onHome }) {
         <div className="relative">
           <button
             onClick={() => setNotifOpen(v => !v)}
-            className="p-2 rounded-full hover:bg-white/10 transition-colors relative"
-            style={{ color: 'rgba(255,255,255,0.8)' }}
+            className="p-2 rounded-full hover:bg-outline-variant/20 transition-colors relative"
+            style={{ color: '#002068' }}
           >
             <span className="material-symbols-outlined">notifications</span>
             {unread > 0 && (
               <span
                 className="absolute top-1.5 right-1.5 flex items-center justify-center rounded-full border-2 font-bold"
-                style={{ width: 17, height: 17, fontSize: 9, background: '#dc2626', color: '#fff', borderColor: '#002068' }}
+                style={{ width: 17, height: 17, fontSize: 9, background: '#dc2626', color: '#fff', borderColor: '#f8f7ff' }}
               >
                 {unread}
               </span>
@@ -255,14 +245,14 @@ export default function Header({ onHome }) {
           )}
         </div>
 
-        <button className="p-2 rounded-full hover:bg-white/10 transition-colors" style={{ color: 'rgba(255,255,255,0.8)' }}>
+        <button className="p-2 rounded-full hover:bg-outline-variant/20 transition-colors" style={{ color: '#002068' }}>
           <span className="material-symbols-outlined">calendar_month</span>
         </button>
-        <button className="p-2 rounded-full hover:bg-white/10 transition-colors" style={{ color: 'rgba(255,255,255,0.8)' }}>
+        <button className="p-2 rounded-full hover:bg-outline-variant/20 transition-colors" style={{ color: '#002068' }}>
           <span className="material-symbols-outlined">apps</span>
         </button>
         <div className="ml-2 flex items-center gap-3 cursor-pointer">
-          <img alt="Профиль" className="w-10 h-10 rounded-full object-cover border-2 border-white/20" src="/iam1.png" />
+          <img alt="Профиль" className="w-10 h-10 rounded-full object-cover border-2" style={{ borderColor: '#ddd6fe' }} src="/iam1.png" />
         </div>
       </div>
     </header>

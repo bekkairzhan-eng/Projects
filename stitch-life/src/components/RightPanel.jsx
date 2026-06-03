@@ -160,7 +160,7 @@ export default function RightPanel({ drawerOpen = false, onDrawerOpen, onDrawerC
         </div>
       </div>
 
-    <aside className="fixed right-0 top-16 bottom-0 w-80 bg-surface overflow-y-auto hidden xl:flex flex-col p-6 z-40 custom-scrollbar" style={{ boxShadow: '-2px 0 20px rgba(0,0,0,0.06)' }}>
+    <aside className="fixed right-0 top-16 bottom-0 w-80 overflow-y-auto hidden xl:flex flex-col z-40 custom-scrollbar" style={{ background: '#f8f7ff', paddingTop: 24, paddingBottom: 24, paddingLeft: 0, paddingRight: 24 }}>
 
       {/* Задачи — скрыто, будет во второй итерации */}
       {false && (
@@ -194,7 +194,7 @@ export default function RightPanel({ drawerOpen = false, onDrawerOpen, onDrawerC
       </div>
 
       {/* Моя команда */}
-      <div className="mb-6">
+      <div className="mb-6 bg-white rounded-2xl p-4 border border-outline-variant/20 shadow-sm">
         <h3 className="font-semibold mb-4" style={{ fontSize: 16 }}>Моя команда</h3>
         <div className="space-y-3">
           {TEAM.map((m) => (
@@ -206,6 +206,41 @@ export default function RightPanel({ drawerOpen = false, onDrawerOpen, onDrawerC
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Создать публикацию */}
+      <div className="mb-6 rounded-2xl overflow-hidden relative" style={{ background: '#f0f7ff', border: '1px solid #bfd6ff', minHeight: 148 }}>
+        {/* Декоративные кружки */}
+        <div className="absolute rounded-full" style={{ width: 80, height: 80, background: '#dbeeff', top: -24, right: 48, opacity: 0.6 }} />
+        <div className="absolute rounded-full" style={{ width: 48, height: 48, background: '#c7e4ff', top: 8, right: 20, opacity: 0.5 }} />
+
+        <div className="relative p-4" style={{ width: '65%' }}>
+          <p className="font-bold mb-1.5" style={{ fontSize: 14, color: '#002068', lineHeight: 1.3 }}>
+            Поделись новостью! 🎉
+          </p>
+          <p className="leading-snug mb-3" style={{ fontSize: 11, color: '#5b7aa8' }}>
+            Есть история, фото с объекта или классная идея? Публикуй в BI Дауысы!
+          </p>
+          <button
+            className="w-full py-2 rounded-xl font-bold border transition-colors hover:bg-primary-container/5"
+            style={{ fontSize: 12, borderColor: '#002068', color: '#002068', background: '#fff' }}
+          >
+            Создать публикацию
+          </button>
+        </div>
+
+        {/* Иконки справа */}
+        <div className="absolute flex flex-col gap-2 items-center" style={{ right: 12, top: 16 }}>
+          <div className="rounded-2xl flex items-center justify-center shadow-sm" style={{ width: 40, height: 40, background: '#4f8ef7' }}>
+            <span className="material-symbols-outlined text-white" style={{ fontSize: 22, fontVariationSettings: "'FILL' 1" }}>photo_camera</span>
+          </div>
+          <div className="rounded-2xl flex items-center justify-center shadow-sm" style={{ width: 40, height: 40, background: '#ff6b8a' }}>
+            <span className="material-symbols-outlined text-white" style={{ fontSize: 22, fontVariationSettings: "'FILL' 1" }}>favorite</span>
+          </div>
+          <div className="rounded-2xl flex items-center justify-center shadow-sm" style={{ width: 40, height: 40, background: '#fbbf24' }}>
+            <span className="material-symbols-outlined text-white" style={{ fontSize: 22, fontVariationSettings: "'FILL' 1" }}>star</span>
+          </div>
         </div>
       </div>
 

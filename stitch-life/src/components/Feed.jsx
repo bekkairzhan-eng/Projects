@@ -1,5 +1,33 @@
 import { useState, useRef, useEffect } from 'react'
 
+// banner: true — статья отображается как баннер на главной (только одна)
+const BANNERS = [
+  {
+    img: '/ban1.png',
+    category: 'Главная новость',
+    title: 'Новый рекорд на проекте Greenline',
+    text: 'Команда завершила бетонирование на 3 дня раньше срока. Отличная работа!',
+  },
+  {
+    img: '/ban2.png',
+    category: 'Холдинг',
+    title: 'BI Group входит в ТОП-3 застройщиков Казахстана',
+    text: 'По версии Forbes Kazakhstan холдинг занял третье место в ежегодном рейтинге.',
+  },
+  {
+    img: '/ban3.png',
+    category: 'События',
+    title: 'BI Run 2026 — объединяем спорт и добрые дела',
+    text: 'Корпоративный забег пройдёт 15 июня в парке Жетысу. Регистрация открыта!',
+  },
+  {
+    img: '/ban4.png',
+    category: 'Обучение',
+    title: 'Запуск новой программы развития руководителей',
+    text: 'Программа BI Leaders 2026 стартует в июле. Подай заявку до 20 июня.',
+  },
+]
+
 const ALL_NEWS = [
   {
     img: '/news1.png',
@@ -10,6 +38,7 @@ const ALL_NEWS = [
     text: 'BI Group поздравляет всех сотрудников с великим праздником Курбан айт. Желаем мира, благополучия и процветания вашим семьям.',
     date: '27 мая',
     featured: true,
+    likes: 214, comments: 38, views: 1840,
   },
   {
     img: '/news2.png',
@@ -18,6 +47,7 @@ const ALL_NEWS = [
     categoryStyle: { color: '#5f6365' },
     title: 'Первые шаги в профессию: стажёры Foreman D',
     date: '26 мая',
+    likes: 87, comments: 12, views: 620,
   },
   {
     img: '/news3.png',
@@ -26,6 +56,7 @@ const ALL_NEWS = [
     categoryStyle: { color: '#4f1100' },
     title: 'Включайтесь в игру: начинается BIG QUEST!',
     date: '25 мая',
+    likes: 156, comments: 24, views: 980,
   },
   {
     img: '/news4.png',
@@ -34,6 +65,7 @@ const ALL_NEWS = [
     categoryStyle: { color: '#002068' },
     title: 'С днём рождения, BI Group — нам 31 год!',
     date: '22 мая',
+    likes: 341, comments: 56, views: 2100,
   },
   {
     img: '/news5.png',
@@ -44,6 +76,7 @@ const ALL_NEWS = [
     text: 'Коллеги поддерживают идею заканчивать работу в 17:00 по пятницам для повышения продуктивности в течение недели.',
     date: '26 мая',
     featured: true,
+    likes: 92, comments: 18, views: 540,
   },
   {
     img: '/news6.png',
@@ -52,6 +85,7 @@ const ALL_NEWS = [
     categoryStyle: { color: '#0f766e' },
     title: 'Добавить велопарковку у главного офиса',
     date: '24 мая',
+    likes: 45, comments: 9, views: 310,
   },
   {
     img: '/news1.png',
@@ -60,6 +94,7 @@ const ALL_NEWS = [
     categoryStyle: { color: '#0f766e' },
     title: 'Организовать корпоративную библиотеку',
     date: '22 мая',
+    likes: 31, comments: 6, views: 220,
   },
   {
     img: '/news2.png',
@@ -70,6 +105,7 @@ const ALL_NEWS = [
     text: 'Пройдите анонимный опрос — ваше мнение поможет улучшить условия работы в холдинге. Срок: до 31 мая.',
     date: '27 мая',
     featured: true,
+    likes: 128, comments: 22, views: 870,
   },
   {
     img: '/news3.png',
@@ -78,6 +114,7 @@ const ALL_NEWS = [
     categoryStyle: { color: '#7c3aed' },
     title: 'Как вы оцениваете внутренние коммуникации?',
     date: '25 мая',
+    likes: 67, comments: 14, views: 490,
   },
   {
     img: '/news4.png',
@@ -86,6 +123,7 @@ const ALL_NEWS = [
     categoryStyle: { color: '#be185d' },
     title: 'Удовлетворённость условиями труда 2026',
     date: '20 мая',
+    likes: 53, comments: 8, views: 380,
   },
 ]
 
@@ -375,6 +413,20 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
   )
   const [visibleCount, setVisibleCount] = useState(DAUYS_BATCH)
   const [newsTab, setNewsTab] = useState('all')
+  const [bannerIdx, setBannerIdx] = useState(0)
+  const bannerTimer = useRef(null)
+
+  function resetBannerTimer() {
+    if (bannerTimer.current) clearInterval(bannerTimer.current)
+    bannerTimer.current = setInterval(() => {
+      setBannerIdx(i => (i + 1) % BANNERS.length)
+    }, 10000)
+  }
+
+  useEffect(() => {
+    resetBannerTimer()
+    return () => clearInterval(bannerTimer.current)
+  }, [])
   const feedRef = useRef(null)
   const sentinel = useRef(null)
 
@@ -442,8 +494,8 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
                   className="px-3 py-1.5 rounded-lg font-semibold transition-all"
                   style={{
                     fontSize: 12,
-                    background: newsTab === tab.key ? 'linear-gradient(135deg, #001752, #0038b8)' : 'transparent',
-                    color: newsTab === tab.key ? '#fff' : '#4a4955',
+                    background: newsTab === tab.key ? '#002068' : '#ffffff',
+                    color: newsTab === tab.key ? '#fff' : '#444653',
                   }}
                 >
                   {tab.label}
@@ -464,44 +516,81 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
         </div>
 
         {(() => {
+          const banner = BANNERS[bannerIdx]
           const filtered = newsTab === 'all' ? ALL_NEWS : ALL_NEWS.filter(n => n.tab === newsTab)
-          const featured = filtered.find(n => n.featured) ?? filtered[0]
-          const secondary = filtered.filter(n => n !== featured).slice(0, 3)
+          const secondary = filtered.slice(0, 4)
           return (
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              {/* Featured */}
-              <div className="md:col-span-2 group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow flex flex-col">
-                <div className="relative overflow-hidden" style={{ height: 200 }}>
-                  <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src={featured.img} alt={featured.title} />
-                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded text-[11px] font-bold uppercase" style={{ background: 'rgba(255,255,255,0.9)', color: '#002068' }}>
-                    {featured.category}
-                  </div>
-                  <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded text-[11px]" style={{ background: 'rgba(0,0,0,0.4)', color: '#fff' }}>
-                    {featured.date}
-                  </div>
+              {/* Баннер слева — PR ставит галочку «Баннер» при публикации */}
+              <div className="md:col-span-2 group cursor-pointer rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow relative" style={{ minHeight: 300 }}>
+                <div className="absolute inset-0">
+                  <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src={banner.img} alt={banner.title} />
+                  {/* Затемнение */}
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)' }} />
                 </div>
-                <div className="p-4 flex flex-col flex-1">
-                  <h4 className="font-bold mb-2 group-hover:text-primary transition-colors leading-snug" style={{ fontSize: 17 }}>
-                    {featured.title}
-                  </h4>
-                  {featured.text && <p style={{ fontSize: 13, color: '#444653', lineHeight: '20px' }}>{featured.text}</p>}
-                  <div className="mt-auto pt-3 flex justify-end">
-                    <span className="text-[12px] font-semibold text-primary hover:underline cursor-pointer">Читать →</span>
+                {/* Контент поверх фото */}
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <span className="inline-block mb-2 px-2.5 py-1 rounded font-bold uppercase text-white" style={{ fontSize: 10, letterSpacing: '0.08em', background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)' }}>
+                    {banner.category}
+                  </span>
+                  <h2 className="font-bold text-white mb-2 leading-tight" style={{ fontSize: 20 }}>
+                    {banner.title}
+                  </h2>
+                  <p className="mb-3" style={{ fontSize: 12, color: 'rgba(255,255,255,0.8)' }}>
+                    {banner.text}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <button className="flex items-center gap-1.5 px-4 py-2 rounded-xl font-semibold text-white transition-all hover:bg-white/30" style={{ fontSize: 12, background: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)' }}>
+                      Читать подробнее
+                      <span className="material-symbols-outlined" style={{ fontSize: 15 }}>arrow_forward</span>
+                    </button>
+                    {/* Навигация */}
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={e => { e.stopPropagation(); setBannerIdx(i => (i - 1 + BANNERS.length) % BANNERS.length); resetBannerTimer() }}
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-white transition-all hover:bg-white/30"
+                        style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(4px)' }}
+                      >
+                        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_left</span>
+                      </button>
+                      <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>{bannerIdx + 1} / {BANNERS.length}</span>
+                      <button
+                        onClick={e => { e.stopPropagation(); setBannerIdx(i => (i + 1) % BANNERS.length); resetBannerTimer() }}
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-white transition-all hover:bg-white/30"
+                        style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(4px)' }}
+                      >
+                        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_right</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Secondary — flex колонка, каждая карточка flex-1 */}
-              <div className="md:col-span-2 flex flex-col gap-3">
+              {/* 4 новости справа */}
+              <div className="md:col-span-2 flex flex-col gap-2">
                 {secondary.map(n => (
                   <div key={n.title} className="group cursor-pointer flex gap-3 bg-white p-3 rounded-xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow flex-1">
-                    <div className="relative rounded-lg overflow-hidden shrink-0 self-stretch" style={{ width: 100, minHeight: 72 }}>
+                    <div className="relative rounded-lg overflow-hidden shrink-0 self-stretch" style={{ width: 88, minHeight: 68 }}>
                       <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={n.img} alt={n.title} />
                     </div>
                     <div className="flex-1 flex flex-col justify-center py-0.5">
                       <div className="text-[10px] font-bold uppercase mb-1" style={n.categoryStyle}>{n.category}</div>
-                      <h4 className="font-bold group-hover:text-primary transition-colors mb-1 leading-snug" style={{ fontSize: 13 }}>{n.title}</h4>
-                      <p style={{ fontSize: 11, color: 'rgba(68,70,83,0.6)' }}>{n.date}</p>
+                      <h4 className="font-bold group-hover:text-primary transition-colors mb-1 leading-snug" style={{ fontSize: 12 }}>{n.title}</h4>
+                      <div className="flex items-center gap-2" style={{ color: '#9ca3af' }}>
+                        <span style={{ fontSize: 10 }}>{n.date}</span>
+                        <span className="flex items-center gap-0.5">
+                          <span className="material-symbols-outlined" style={{ fontSize: 11 }}>favorite</span>
+                          <span style={{ fontSize: 10 }}>{n.likes}</span>
+                        </span>
+                        <span className="flex items-center gap-0.5">
+                          <span className="material-symbols-outlined" style={{ fontSize: 11 }}>chat_bubble_outline</span>
+                          <span style={{ fontSize: 10 }}>{n.comments}</span>
+                        </span>
+                        <span className="flex items-center gap-0.5">
+                          <span className="material-symbols-outlined" style={{ fontSize: 11 }}>visibility</span>
+                          <span style={{ fontSize: 10 }}>{n.views}</span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 ))}

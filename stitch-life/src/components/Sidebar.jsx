@@ -1,11 +1,10 @@
 import { useState } from 'react'
 
 const MAIN_NAV = [
-  { icon: 'home', label: 'Главная', iconColor: '#002068' },
+  { icon: 'home', label: 'Главная' },
   {
     icon: 'newspaper',
     label: 'Новости',
-    iconColor: '#0ea5e9',
     children: [
       { icon: 'view_stream', label: 'Лента' },
       { icon: 'menu_book', label: 'Журналы' },
@@ -16,7 +15,6 @@ const MAIN_NAV = [
   {
     icon: 'group',
     label: 'Сотрудники',
-    iconColor: '#8b5cf6',
     children: [
       { icon: 'cake', label: 'Дни рождения' },
       { icon: 'person_add', label: 'Новые' },
@@ -27,7 +25,6 @@ const MAIN_NAV = [
   {
     icon: 'account_tree',
     label: 'Оргструктура',
-    iconColor: '#f59e0b',
     children: [
       { icon: 'handshake', label: 'Акционеры и Партнеры' },
       { icon: 'military_tech', label: 'ТОР Сотрудники' },
@@ -36,14 +33,13 @@ const MAIN_NAV = [
   {
     icon: 'diversity_3',
     label: 'Миссия и Ценности',
-    iconColor: '#10b981',
     children: [
       { icon: 'my_location', label: 'Цель' },
       { icon: 'favorite', label: 'Ценности' },
       { icon: 'history', label: 'История' },
     ],
   },
-  { icon: 'record_voice_over', label: 'BI Дауысы', iconColor: '#f43f5e' },
+  { icon: 'record_voice_over', label: 'BI Дауысы' },
 ]
 
 const SYSTEMS = [
@@ -82,16 +78,15 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
 
   return (
     <aside
-      className="fixed left-0 top-16 bottom-0 bg-white flex flex-col pt-4 pb-8 z-40 hidden md:flex transition-all duration-300"
-      style={{ boxShadow: '2px 0 20px rgba(0,0,0,0.07)' }}
-      style={{ width: collapsed ? 72 : 256 }}
+      className="fixed left-0 top-0 bottom-0 flex flex-col pb-8 z-40 hidden md:flex transition-all duration-300"
+      style={{ background: '#fff', width: collapsed ? 72 : 256, boxShadow: '2px 0 16px rgba(0,0,0,0.06)' }}
     >
-      {/* Collapse toggle — маленький круглый handle на правом крае */}
+      {/* Collapse toggle */}
       <button
         onClick={onToggle}
         title={collapsed ? 'Развернуть' : 'Свернуть'}
-        className="absolute -right-3 top-6 w-6 h-6 rounded-full bg-white border border-outline-variant shadow-sm flex items-center justify-center hover:bg-surface-container hover:border-primary transition-all duration-200 z-10"
-        style={{ color: '#747684' }}
+        className="absolute -right-3 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-200 z-10 hover:scale-110"
+        style={{ top: 70, background: '#002068', color: '#fff', boxShadow: '0 2px 8px rgba(0,32,104,0.3)' }}
       >
         <span
           className="material-symbols-outlined transition-transform duration-300"
@@ -101,7 +96,15 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
         </span>
       </button>
 
-      <nav className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
+      {/* Лого */}
+      <div className={`flex items-center flex-shrink-0 ${collapsed ? 'justify-center px-0 py-5' : 'px-5 py-5'}`}>
+        {collapsed
+          ? <span className="font-black text-primary" style={{ fontSize: 18 }}>BI</span>
+          : <img src="/logo1.png" alt="BI Life" style={{ height: 34 }} />
+        }
+      </div>
+
+      <nav className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar mt-2">
         {MAIN_NAV.map((item) => {
           const isActive = active === item.label
           const isExpanded = !!expanded[item.label]
@@ -114,18 +117,22 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
                 href="#"
                 onClick={(e) => handleParentClick(e, item)}
                 title={collapsed ? item.label : undefined}
-                className={`flex items-center gap-3 rounded-xl my-0.5 transition-all duration-200 ${
+                className={`flex items-center gap-3 rounded-xl my-1.5 transition-all duration-200 ${
                   collapsed ? 'mx-2 px-3 py-3 justify-center' : 'mx-2 px-4 py-2.5'
                 } ${
                   highlighted
-                    ? 'bg-primary/10 text-primary font-medium shadow-sm'
-                    : 'text-on-surface-variant hover:bg-surface-container-high'
+                    ? 'font-medium'
+                    : 'hover:bg-surface-container-high'
                 }`}
+                style={{
+                  color: highlighted ? '#4361ee' : '#002068',
+                  background: highlighted ? '#eef0ff' : undefined,
+                }}
               >
                 <span
                   className="material-symbols-outlined flex-shrink-0"
                   style={{
-                    color: item.iconColor ?? '#6e6d78',
+                    color: highlighted ? '#4361ee' : '#002068',
                     fontVariationSettings: highlighted ? "'FILL' 1" : "'FILL' 0",
                   }}
                 >
@@ -191,7 +198,7 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
         })}
 
         {/* Рабочие системы */}
-        <div className="h-px bg-outline-variant/30 my-4 mx-3" />
+        <div className="h-px bg-outline-variant/30 mt-8 mb-3 mx-3" />
         {!collapsed && (
           <div className="px-6 mb-2">
             <span className="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/60">
@@ -223,7 +230,7 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
         ))}
 
         {/* Инструменты */}
-        <div className="h-px bg-outline-variant/30 my-4 mx-3" />
+        <div className="h-px bg-outline-variant/30 mt-8 mb-3 mx-3" />
         {!collapsed && (
           <div className="px-6 mb-2">
             <span className="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/60">
@@ -249,13 +256,15 @@ export default function Sidebar({ collapsed, onToggle, onSystemClick, onHome }) 
         ))}
       </nav>
 
-      <div className="border-t border-outline-variant/30 pt-4">
+      {/* Настройки — всегда внизу */}
+      <div className="mt-auto border-t border-outline-variant/20 pt-3 pb-2">
         <a
           href="#"
           title={collapsed ? 'Настройки' : undefined}
-          className={`flex items-center gap-3 text-on-surface-variant mx-2 hover:bg-surface-container-high transition-colors rounded-lg ${
+          className={`flex items-center gap-3 mx-2 hover:bg-surface-container-high transition-colors rounded-lg ${
             collapsed ? 'px-3 py-3 justify-center' : 'px-4 py-3'
           }`}
+          style={{ color: '#002068' }}
         >
           <span className="material-symbols-outlined">settings</span>
           {!collapsed && <span className="text-sm">Настройки</span>}
