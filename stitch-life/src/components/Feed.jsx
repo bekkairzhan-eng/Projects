@@ -518,11 +518,11 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
         {(() => {
           const banner = BANNERS[bannerIdx]
           const filtered = newsTab === 'all' ? ALL_NEWS : ALL_NEWS.filter(n => n.tab === newsTab)
-          const secondary = filtered.slice(0, 4)
+          const secondary = filtered.slice(0, 3)
           return (
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {/* Баннер слева — PR ставит галочку «Баннер» при публикации */}
-              <div className="md:col-span-2 group cursor-pointer rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow relative" style={{ minHeight: 300 }}>
+              <div className="md:col-span-3 group cursor-pointer rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow relative" style={{ minHeight: 400 }}>
                 <div className="absolute inset-0">
                   <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src={banner.img} alt={banner.title} />
                   {/* Затемнение */}
@@ -566,25 +566,30 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
                 </div>
               </div>
 
-              {/* 4 новости справа */}
+              {/* 3 новости справа */}
               <div className="md:col-span-2 flex flex-col gap-2">
                 {secondary.map(n => (
-                  <div key={n.title} className="group cursor-pointer flex gap-3 bg-white p-3 rounded-xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow flex-1">
-                    <div className="relative rounded-lg overflow-hidden shrink-0 self-stretch" style={{ width: 88, minHeight: 68 }}>
+                  <div key={n.title} className="group cursor-pointer bg-white rounded-xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow flex-1 flex overflow-hidden">
+                    {/* Фото слева */}
+                    <div className="relative shrink-0 overflow-hidden" style={{ width: 110 }}>
                       <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={n.img} alt={n.title} />
                     </div>
-                    <div className="flex-1 flex flex-col justify-center py-0.5">
-                      <div className="text-[10px] font-bold uppercase mb-1" style={n.categoryStyle}>{n.category}</div>
-                      <h4 className="font-bold group-hover:text-primary transition-colors mb-1 leading-snug" style={{ fontSize: 12 }}>{n.title}</h4>
-                      <div className="flex items-center gap-2" style={{ color: '#9ca3af' }}>
+                    {/* Текст справа — белый фон */}
+                    <div className="flex-1 p-3 flex flex-col justify-between bg-white min-w-0">
+                      <div>
+                        <div className="text-[9px] font-bold uppercase mb-1" style={n.categoryStyle}>{n.category}</div>
+                        <h4 className="font-bold group-hover:text-primary transition-colors leading-snug mb-1" style={{ fontSize: 12 }}>{n.title}</h4>
+                        {n.text && (
+                          <p style={{ fontSize: 11, color: '#6b7280', lineHeight: '16px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                            {n.text}
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 mt-1.5" style={{ color: '#9ca3af' }}>
                         <span style={{ fontSize: 10 }}>{n.date}</span>
                         <span className="flex items-center gap-0.5">
                           <span className="material-symbols-outlined" style={{ fontSize: 11 }}>favorite</span>
                           <span style={{ fontSize: 10 }}>{n.likes}</span>
-                        </span>
-                        <span className="flex items-center gap-0.5">
-                          <span className="material-symbols-outlined" style={{ fontSize: 11 }}>chat_bubble_outline</span>
-                          <span style={{ fontSize: 10 }}>{n.comments}</span>
                         </span>
                         <span className="flex items-center gap-0.5">
                           <span className="material-symbols-outlined" style={{ fontSize: 11 }}>visibility</span>
