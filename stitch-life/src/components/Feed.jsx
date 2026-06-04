@@ -520,9 +520,9 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
           const filtered = newsTab === 'all' ? ALL_NEWS : ALL_NEWS.filter(n => n.tab === newsTab)
           const secondary = filtered.slice(0, 3)
           return (
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Баннер слева — PR ставит галочку «Баннер» при публикации */}
-              <div className="md:col-span-3 group cursor-pointer rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow relative" style={{ minHeight: 400 }}>
+              <div className="md:col-span-2 group cursor-pointer rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow relative" style={{ minHeight: 400 }}>
                 <div className="absolute inset-0">
                   <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src={banner.img} alt={banner.title} />
                   {/* Затемнение */}
@@ -567,7 +567,7 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
               </div>
 
               {/* 3 новости справа */}
-              <div className="md:col-span-2 flex flex-col gap-2">
+              <div className="md:col-span-1 flex flex-col gap-2">
                 {secondary.map(n => (
                   <div key={n.title} className="group cursor-pointer bg-white rounded-xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow flex-1 flex overflow-hidden">
                     {/* Фото слева */}
