@@ -216,9 +216,13 @@ export default function RightPanel({ drawerOpen = false, onDrawerOpen, onDrawerC
       </div>
 
       {/* Моя команда */}
-      <div className="mb-6 bg-white rounded-2xl p-4 border border-outline-variant/20 shadow-sm">
-        <h3 className="font-semibold mb-4" style={{ fontSize: 16 }}>Моя команда</h3>
-        <div className="space-y-3">
+      <div className="mb-6 bg-white rounded-2xl overflow-hidden border border-outline-variant/20 shadow-sm">
+        <div className="px-4 pt-3 pb-1 mb-3" style={{ borderBottom: '2px solid #002068', display: 'inline-block' }}>
+          <p className="font-bold uppercase" style={{ fontSize: 10, letterSpacing: '0.12em', color: '#002068' }}>
+            Моя команда
+          </p>
+        </div>
+        <div className="space-y-3 px-4 pb-4">
           {TEAM.map((m) => (
             <div key={m.name} className="flex items-center gap-3">
               <img src={m.img} className="w-9 h-9 rounded-full object-cover flex-shrink-0" alt={m.name} />
