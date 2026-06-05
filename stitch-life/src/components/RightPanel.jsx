@@ -183,14 +183,36 @@ export default function RightPanel({ drawerOpen = false, onDrawerOpen, onDrawerC
       )}
 
       {/* Слово дня */}
-      <div className="rounded-2xl p-4 text-white mb-6" style={{ background: 'linear-gradient(135deg, #001650 0%, #0038b8 100%)' }}>
-        <p className="font-semibold uppercase mb-2" style={{ fontSize: 10, letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)' }}>
-          Слово дня
-        </p>
-        <p className="font-bold mb-2" style={{ fontSize: 15, color: '#fff' }}>Префаб</p>
-        <p className="leading-relaxed" style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', lineHeight: '18px' }}>
-          Готовая деталь каркаса или фасада, производимая на фабрике для сухой сборки на стройплощадке.
-        </p>
+      <div className="rounded-2xl mb-6 overflow-hidden border border-outline-variant/20 shadow-sm relative" style={{ background: '#fff' }}>
+        {/* Узор в правом верхнем углу */}
+        <div
+          className="absolute top-0 right-0 pointer-events-none"
+          style={{
+            width: 80,
+            height: 80,
+            backgroundColor: '#002068',
+            opacity: 0.12,
+            WebkitMaskImage: 'url(/word2.png)',
+            maskImage: 'url(/word2.png)',
+            WebkitMaskSize: 'contain',
+            maskSize: 'contain',
+            WebkitMaskRepeat: 'no-repeat',
+            maskRepeat: 'no-repeat',
+            WebkitMaskPosition: 'top right',
+            maskPosition: 'top right',
+          }}
+        />
+        <div className="px-4 pt-3 pb-1" style={{ borderBottom: '2px solid #002068', display: 'inline-block' }}>
+          <p className="font-bold uppercase" style={{ fontSize: 10, letterSpacing: '0.12em', color: '#002068' }}>
+            Слово дня
+          </p>
+        </div>
+        <div className="p-4">
+          <p className="font-bold mb-2" style={{ fontSize: 16, color: '#002068' }}>Префаб</p>
+          <p className="leading-relaxed" style={{ fontSize: 12, color: '#444653', lineHeight: '18px' }}>
+            Готовая деталь каркаса или фасада, производимая на фабрике для сухой сборки на стройплощадке.
+          </p>
+        </div>
       </div>
 
       {/* Моя команда */}
