@@ -349,8 +349,6 @@ const EXTRA_SYSTEMS = [
 const QUICK_LAUNCH = [
   { icon: 'star',            label: 'Фонд Жулдызай' },
   { icon: 'desktop_windows', label: 'Service Desk'  },
-  { icon: 'edit_note',       label: 'Записка'        },
-  { icon: 'description',     label: 'Договор'        },
   { icon: 'flight_takeoff',  label: 'На отпуск'      },
   { icon: 'lock',            label: 'Доступ'         },
 ]
@@ -364,10 +362,10 @@ const DAUYS_BATCH = 4
 
 const PER_PAGE = 10
 
-function HorizontalPagedGrid({ items, renderCard, title, icon }) {
+function HorizontalPagedGrid({ items, renderCard, title, icon, perPage = PER_PAGE }) {
   const [page, setPage] = useState(0)
-  const total = Math.ceil(items.length / PER_PAGE)
-  const visible = items.slice(page * PER_PAGE, (page + 1) * PER_PAGE)
+  const total = Math.ceil(items.length / perPage)
+  const visible = items.slice(page * perPage, (page + 1) * perPage)
 
   return (
     <div>
@@ -399,7 +397,7 @@ function HorizontalPagedGrid({ items, renderCard, title, icon }) {
       </div>
 
       {/* Сетка */}
-      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${PER_PAGE}, 1fr)`, gap: 10 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${perPage}, 1fr)`, gap: 10 }}>
         {visible.map((item, i) => renderCard(item, i))}
       </div>
     </div>
@@ -611,7 +609,6 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
         <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-outline-variant/20 flex flex-col" id="dauys-card">
           <div className="flex items-center justify-between mb-6">
             <h3 className="flex items-center gap-2 font-bold" style={{ fontSize: 24 }}>
-              <span className="material-symbols-outlined text-primary" style={{ fontSize: 28 }}>campaign</span>
               BI Дауысы
             </h3>
             <a href="#" className="font-semibold hover:underline" style={{ fontSize: 13, color: '#002068' }}>
@@ -768,6 +765,7 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
           title="Дни рождения"
           icon="cake"
           items={BIRTHDAYS}
+          perPage={8}
           renderCard={(b) => (
             <div
               key={b.name}
@@ -796,25 +794,19 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
 
       {/* Клубы BI */}
       <section className="mt-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-bold flex items-center gap-2" style={{ fontSize: 20, color: '#1a1b22' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: 22, color: '#002068' }}>diversity_1</span>
-            Клубы BI
-          </h2>
-          <a href="#" className="font-semibold hover:underline" style={{ fontSize: 13, color: '#002068' }}>Все</a>
-        </div>
-
-        <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${BI_CLUBS.length}, 1fr)` }}>
-          {BI_CLUBS.map((club) => (
+        <HorizontalPagedGrid
+          title="Клубы BI"
+          icon="diversity_1"
+          items={BI_CLUBS}
+          perPage={4}
+          renderCard={(club) => (
             <div
               key={club.short}
               className="flex flex-col bg-white rounded-2xl border border-outline-variant/20 shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden"
             >
-              {/* Лого */}
               <div className="flex items-center justify-center" style={{ background: club.bg, height: 80 }}>
                 <img src={club.logo} alt={club.short} style={{ height: 56, width: 'auto', objectFit: 'contain' }} />
               </div>
-              {/* Контент */}
               <div className="p-3 flex flex-col gap-1 flex-1">
                 <p className="font-bold leading-tight" style={{ fontSize: 13, color: club.color }}>{club.short}</p>
                 <p className="font-semibold leading-tight" style={{ fontSize: 11, color: '#1a1b22' }}>{club.name}</p>
@@ -823,8 +815,8 @@ export default function Feed({ onSystemClick: _onSystemClick, onOpenTasks }) {
                 </p>
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        />
       </section>
     </div>
   )
